@@ -1,6 +1,18 @@
 <div class="wrapper" *ngrxLet="current$ as current">
+  @if (current.type === 'team') {
   <img [src]="current.image" [alt]="current.title" />
-  <div class="content">
+  } @else {
+  <ng-container *ngComponentOutlet="current.component"></ng-container>
+  }
+  <div class="description">
     <p>{{ current.title }}</p>
   </div>
+  <ng-container *ngrxLet="demo$ as demo">
+    @if (demo) {
+    <ng-container *ngrxLet="currentIndex$ as index">
+      <div class="prev"><button (click)="prev(index)">Zurück</button></div>
+      <div class="next"><button (click)="next(index)">Weiter</button></div>
+    </ng-container>
+    }
+  </ng-container>
 </div>

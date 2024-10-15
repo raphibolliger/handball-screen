@@ -6,5 +6,5 @@ import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations(), provideStore()]
+  providers: [provideRouter(routes), provideAnimations(), provideStore()],
 };
