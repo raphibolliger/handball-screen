@@ -8,6 +8,7 @@ import { SponsorenComponent } from './sponsors/components/sponsoren/sponsoren.co
 import { FirmensupporterComponent } from './sponsors/components/firmensupporter/firmensupporter.component';
 import { SaisonmatchballComponent } from './sponsors/components/saisonmatchball/saisonmatchball.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PrivatsupporterComponent } from './sponsors/components/privatsupporter/privatsupporter.component';
 
 @Component({
   selector: 'app-root',
@@ -47,6 +48,7 @@ export class AppComponent {
     { type: 'sponsor', component: HerrenComponent, title: 'Sponsoren Männer 2. Liga' },
     { type: 'sponsor', component: SponsorenComponent, title: 'Nachwuchssponsoren / Ausrüster / Sponsor Spieltag / Special-Sponsor' },
     { type: 'sponsor', component: FirmensupporterComponent, title: 'Firmensupporter' },
+    { type: 'sponsor', component: PrivatsupporterComponent, title: 'Supporter Privat' },
     { type: 'sponsor', component: SaisonmatchballComponent, title: 'Saisonmatchballpatronate' },
   ];
 
