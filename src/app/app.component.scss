@@ -1,3 +1,40 @@
+.demo-container {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  height: 100vh;
+
+  .demo-scale {
+    width: 3840px;
+    height: 2160px;
+    transform-origin: top left;
+  }
+
+  .demo-controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .controls {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1rem;
+      padding: 2rem;
+
+      select {
+        min-width: 0;
+        width: 100%;
+
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
 .wrapper {
   position: absolute;
   top: 0;
@@ -22,34 +59,9 @@
     align-items: center;
     background-color: rgba($color: #000000, $alpha: 0.5);
     height: 15%;
-    font-size: clamp(12px, 2.8vw, 6rem);
+    font-size: 6rem;
     color: white;
     font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
     text-align: center;
-  }
-
-  .prev,
-  .next {
-    position: absolute;
-    bottom: 0;
-    height: 15%;
-    display: grid;
-    align-items: center;
-
-    button {
-      font-size: 2rem;
-      padding: 1rem;
-      cursor: pointer;
-    }
-  }
-
-  .prev {
-    left: 0;
-    padding-left: 1rem;
-  }
-
-  .next {
-    right: 0;
-    padding-right: 1rem;
   }
 }

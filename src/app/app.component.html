@@ -1,18 +1,44 @@
-<div class="wrapper" *ngrxLet="current$ as current">
-  @if (current.type === 'team') {
-  <img [src]="current.image" [alt]="current.title" />
-  } @else {
-  <ng-container *ngComponentOutlet="current.component"></ng-container>
-  }
-  <div class="description">
-    <p>{{ current.title }}</p>
+@let demo = demo$ | async;
+@let demoScale = demoScale$ | async;
+
+@if (demo) {
+  <div class="demo-container">
+    <div class="demo-wrapper" [style.width]="demoScale?.width + 'px'" [style.height]="demoScale?.height + 'px'">
+      <div class="demo-scale" [style.transform]="'scale(' + demoScale?.scale">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </div>
+      <div class="demo-controls">
+        @let index = currentIndex$ | async;
+        @if (index !== null) {
+          <div class="controls">
+            <button (click)="prev(index)">Zurück</button>
+            <select (change)="goto($event)">
+              @for (item of options; track item.index) {
+                <option [selected]="item.index === index" [value]="item.index">{{ item.title }}</option>
+              }
+            </select>
+            <button (click)="next(index)">Weiter</button>
+          </div>
+        }
+      </div>
+    </div>
   </div>
-  <ng-container *ngrxLet="demo$ as demo">
-    @if (demo) {
-    <ng-container *ngrxLet="currentIndex$ as index">
-      <div class="prev"><button (click)="prev(index)">Zurück</button></div>
-      <div class="next"><button (click)="next(index)">Weiter</button></div>
-    </ng-container>
-    }
-  </ng-container>
-</div>
+} @else {
+  <ng-container *ngTemplateOutlet="content"></ng-container>
+}
+
+<ng-template #content>
+  @let current = current$ | async;
+  @if (current) {
+    <div class="wrapper">
+      @if (current.type === "team") {
+        <img [src]="current.image" [alt]="current.title" />
+      } @else {
+        <ng-container *ngComponentOutlet="current.component"></ng-container>
+      }
+      <div class="description">
+        <p>{{ current.title }}</p>
+      </div>
+    </div>
+  }
+</ng-template>
