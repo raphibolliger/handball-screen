@@ -10,11 +10,10 @@ import { SaisonmatchballComponent } from './sponsors/components/saisonmatchball/
 import { SponsorenComponent } from './sponsors/components/sponsoren/sponsoren.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [NgComponentOutlet, AsyncPipe, NgTemplateOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+    selector: 'app-root',
+    imports: [NgComponentOutlet, AsyncPipe, NgTemplateOutlet],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
   private readonly router = inject(Router);
