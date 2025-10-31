@@ -10,10 +10,10 @@ import { SaisonmatchballComponent } from './sponsors/components/saisonmatchball/
 import { SponsorenComponent } from './sponsors/components/sponsoren/sponsoren.component';
 
 @Component({
-    selector: 'app-root',
-    imports: [NgComponentOutlet, AsyncPipe, NgTemplateOutlet],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss'
+  selector: 'app-root',
+  imports: [NgComponentOutlet, AsyncPipe, NgTemplateOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   private readonly router = inject(Router);
@@ -56,7 +56,7 @@ export class AppComponent {
     { type: 'team', image: '/assets/images/teams/mu17i.jpg', title: 'SG Freiamt PLUS - MU17 Inter' },
     { type: 'team', image: '/assets/images/teams/mu17p.jpg', title: 'Handball Wohlen - MU17 Promotion' },
     { type: 'team', image: '/assets/images/teams/mu15i.jpg', title: 'SG Freiamt PLUS - MU15 Inter' },
-    //{ type: 'team', image: '/assets/images/teams/mu15p.jpg', title: 'Handball Wohlen - MU15 Promotion' },
+    { type: 'team', image: '/assets/images/teams/mu15p.jpg', title: 'Handball Wohlen - MU15 Promotion' },
     { type: 'team', image: '/assets/images/teams/mu13i.jpg', title: 'SG Freiamt PLUS - MU13 Inter' },
     { type: 'team', image: '/assets/images/teams/mu13p.jpg', title: 'Handball Wohlen - MU13 Promotion' },
 
