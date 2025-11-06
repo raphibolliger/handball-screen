@@ -45,7 +45,7 @@ export class AppComponent {
   readonly teams: TeamSlide[] = [
     { type: 'team', image: '/assets/images/teams/m2_1.jpg', title: 'SG Wohlen Mutschellen - 2. Liga' },
     { type: 'team', image: '/assets/images/teams/m2_2.jpg', title: 'SG Mutschellen-Wohlen - 2. Liga' },
-    //{ type: 'team', image: '/assets/images/teams/m3.jpg', title: 'Handball Wohlen - 3. Liga' },
+    { type: 'team', image: '/assets/images/teams/m3.jpg', title: 'Handball Wohlen - 3. Liga' },
 
     { type: 'team', image: '/assets/images/teams/f2_1.jpg', title: 'SG Freiamt 1 - 2. Liga' },
     { type: 'team', image: '/assets/images/teams/f2_2.jpg', title: 'SG Freiamt 2 - 2. Liga' },
