@@ -1,0 +1,12 @@
+@for (entry of entries(); track $index) {
+  <div class="entry">
+    @if (isLogo(entry)) {
+      <img [src]="entry.logo" [alt]="entry.name" />
+    } @else {
+      <div class="supporter">
+        <strong>{{ entry.name }}</strong>
+        <span>{{ entry.place }}</span>
+      </div>
+    }
+  </div>
+}
