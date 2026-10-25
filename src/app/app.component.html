@@ -34,7 +34,7 @@
       @if (current.type === "team") {
         <img [src]="current.image" [alt]="current.title" />
       } @else {
-        <ng-container *ngComponentOutlet="current.component"></ng-container>
+        <app-sponsor-grid [entries]="current.entries" />
       }
       <div class="description">
         <p>{{ current.title }}</p>
