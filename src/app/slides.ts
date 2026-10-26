@@ -1,30 +1,34 @@
 import { SponsorSlide, TeamSlide } from './slide.model';
 
 export const teamSlides: readonly TeamSlide[] = [
-  { type: 'team', image: '/assets/images/teams/m2_1.jpg', title: 'SG Wohlen Mutschellen - 2. Liga' },
-  { type: 'team', image: '/assets/images/teams/m2_2.jpg', title: 'SG Mutschellen-Wohlen - 2. Liga' },
-  { type: 'team', image: '/assets/images/teams/m3.jpg', title: 'Handball Wohlen - 3. Liga' },
+  { type: 'team', image: '/assets/images/teams/2026-27/m1.jpg', title: 'SG Wohlen Mutschellen - 1. Liga' },
+  { type: 'team', image: '/assets/images/teams/2026-27/m2.jpg', title: 'SG Mutschellen-Wohlen - 2. Liga' },
+  { type: 'team', image: '/assets/images/teams/2026-27/m3.jpg', title: 'Handball Wohlen - 3. Liga' },
 
-  { type: 'team', image: '/assets/images/teams/f2_1.jpg', title: 'SG Freiamt 1 - 2. Liga' },
-  { type: 'team', image: '/assets/images/teams/f2_2.jpg', title: 'SG Freiamt 2 - 2. Liga' },
-  { type: 'team', image: '/assets/images/teams/f3.jpg', title: 'SG Freiamt 3 - 3. Liga' },
+  { type: 'team', image: '/assets/images/teams/2026-27/f1.jpg', title: 'SG Freiamt 1 - 1. Liga' },
+  { type: 'team', image: '/assets/images/teams/2026-27/f2.jpg', title: 'SG Freiamt 2 - 2. Liga' },
 
-  { type: 'team', image: '/assets/images/teams/mu19i.jpg', title: 'SG Freiamt PLUS - MU19 Inter' },
-  { type: 'team', image: '/assets/images/teams/mu19p.jpg', title: 'SG Freiamt - MU19 Promotion' },
-  { type: 'team', image: '/assets/images/teams/mu17i.jpg', title: 'SG Freiamt PLUS - MU17 Inter' },
-  { type: 'team', image: '/assets/images/teams/mu17p.jpg', title: 'Handball Wohlen - MU17 Promotion' },
-  { type: 'team', image: '/assets/images/teams/mu15i.jpg', title: 'SG Freiamt PLUS - MU15 Inter' },
-  { type: 'team', image: '/assets/images/teams/mu15p.jpg', title: 'Handball Wohlen - MU15 Promotion' },
-  { type: 'team', image: '/assets/images/teams/mu13i.jpg', title: 'SG Freiamt PLUS - MU13 Inter' },
-  { type: 'team', image: '/assets/images/teams/mu13p.jpg', title: 'Handball Wohlen - MU13 Promotion' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu19i.jpg', title: 'SG Freiamt PLUS - MU19 Inter' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu19r.jpg', title: 'SG Freiamt - MU19 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu17i.jpg', title: 'SG Freiamt PLUS - MU17 Inter' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu17r.jpg', title: 'Handball Wohlen - MU17 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu15i.jpg', title: 'SG Freiamt PLUS - MU15 Inter' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu15r.jpg', title: 'SG Freiamt - MU15 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu13i.jpg', title: 'SG Freiamt PLUS - MU13 Inter' },
+  { type: 'team', image: '/assets/images/teams/2026-27/mu13r.jpg', title: 'Handball Wohlen - MU13 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/u13mixed.jpg', title: 'SG Freiamt - U13 mixed' },
 
-  { type: 'team', image: '/assets/images/teams/fu18p.jpg', title: 'SG Freiamt - FU18 Promotion' },
-  { type: 'team', image: '/assets/images/teams/fu16p_1.jpg', title: 'SG Freiamt 1 - FU16 Promotion' },
-  { type: 'team', image: '/assets/images/teams/fu16p_2.jpg', title: 'SG Freiamt 2 - FU16 Promotion' },
-  { type: 'team', image: '/assets/images/teams/fu14p_1.jpg', title: 'SG Freiamt 1 - FU14 Promotion' },
-  { type: 'team', image: '/assets/images/teams/fu14p_2.jpg', title: 'SG Freiamt 2 - FU14 Promotion' },
+  { type: 'team', image: '/assets/images/teams/2026-27/fu18r.jpg', title: 'SG Freiamt - FU18 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/fu16r.jpg', title: 'SG Freiamt - FU16 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/fu14i.jpg', title: 'SG Freiamt - FU14 Inter' },
+  { type: 'team', image: '/assets/images/teams/2026-27/fu14r.jpg', title: 'SG Freiamt - FU14 Regio' },
 
-  { type: 'team', image: '/assets/images/teams/tol.jpg', title: 'SG Freiamt together' },
+  { type: 'team', image: '/assets/images/teams/2026-27/kinder_u11.jpg', title: 'Handball Wohlen - Kinderhandball U11' },
+  { type: 'team', image: '/assets/images/teams/2026-27/kinder_u9.jpg', title: 'Handball Wohlen - Kinderhandball U9' },
+  { type: 'team', image: '/assets/images/teams/2026-27/kinder_u7.jpg', title: 'Handball Wohlen - Kinderhandball U7' },
+  { type: 'team', image: '/assets/images/teams/2026-27/kinder_u5.jpg', title: 'Handball Wohlen - Kinderhandball U5' },
+
+  { type: 'team', image: '/assets/images/teams/2026-27/tol.jpg', title: 'SG Freiamt together' },
 ];
 
 export const sponsorSlides: readonly SponsorSlide[] = [
