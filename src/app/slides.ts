@@ -16,12 +16,12 @@ export const teamSlides: readonly TeamSlide[] = [
   { type: 'team', image: '/assets/images/teams/2026-27/mu15r.jpg', title: 'SG Freiamt - MU15 Regio' },
   { type: 'team', image: '/assets/images/teams/2026-27/mu13i.jpg', title: 'SG Freiamt PLUS - MU13 Inter' },
   { type: 'team', image: '/assets/images/teams/2026-27/mu13r.jpg', title: 'Handball Wohlen - MU13 Regio' },
-  { type: 'team', image: '/assets/images/teams/2026-27/u13mixed.jpg', title: 'SG Freiamt - U13 mixed' },
 
   { type: 'team', image: '/assets/images/teams/2026-27/fu18r.jpg', title: 'SG Freiamt - FU18 Regio' },
   { type: 'team', image: '/assets/images/teams/2026-27/fu16r.jpg', title: 'SG Freiamt - FU16 Regio' },
   { type: 'team', image: '/assets/images/teams/2026-27/fu14i.jpg', title: 'SG Freiamt - FU14 Inter' },
   { type: 'team', image: '/assets/images/teams/2026-27/fu14r.jpg', title: 'SG Freiamt - FU14 Regio' },
+  { type: 'team', image: '/assets/images/teams/2026-27/u13mixed.jpg', title: 'SG Freiamt - U13 mixed' },
 
   { type: 'team', image: '/assets/images/teams/2026-27/kinder_u11.jpg', title: 'Handball Wohlen - Kinderhandball U11' },
   { type: 'team', image: '/assets/images/teams/2026-27/kinder_u9.jpg', title: 'Handball Wohlen - Kinderhandball U9' },
