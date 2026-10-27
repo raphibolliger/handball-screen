@@ -1,0 +1,15 @@
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: true
+      optional: true
+  wifis:
+    wlan0:
+      dhcp4: true
+      regulatory-domain: "CH"
+      access-points:
+        __WIFI_SSID__:
+          password: __WIFI_PASSWORD__
+      optional: true
