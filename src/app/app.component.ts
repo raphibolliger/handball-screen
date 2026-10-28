@@ -2,6 +2,7 @@ import { AsyncPipe, NgTemplateOutlet } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, fromEvent, map, startWith, switchMap, timer } from 'rxjs';
+import { ShuffledDeck } from './shuffled-deck';
 import { sponsorSlides, teamSlides } from './slides';
 import { SponsorGridComponent } from './sponsors/components/sponsor-grid/sponsor-grid.component';
 
@@ -42,12 +43,16 @@ export class AppComponent {
 
   readonly sponsors = sponsorSlides;
 
+  readonly #teamDeck = new ShuffledDeck(this.teams);
+
+  readonly #sponsorDeck = new ShuffledDeck(this.sponsors);
+
   readonly #currentTimerSlide$ = timer(0, 15000).pipe(
     map((i) => {
       if (i % 2 === 0 && this.teams.length > 0) {
-        return this.teams[random(this.teams.length - 1)];
+        return this.#teamDeck.draw();
       } else {
-        return this.sponsors[random(this.sponsors.length - 1)];
+        return this.#sponsorDeck.draw();
       }
     }),
   );
@@ -100,8 +105,4 @@ export class AppComponent {
     const nextIndex = currentIndex + 1 >= this.teams.length + this.sponsors.length ? 0 : currentIndex + 1;
     this.router.navigate([], { queryParams: { index: nextIndex }, queryParamsHandling: 'merge' });
   }
-}
-
-function random(max: number) {
-  return Math.floor(Math.random() * (max + 1));
 }
