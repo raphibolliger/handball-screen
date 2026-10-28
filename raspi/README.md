@@ -62,6 +62,8 @@ Die Passwörter landen nur auf der SD-Karte, nie im Repository. Das WLAN-Passwor
 | Bildschirm schaltet nie ab | `raspi-config nonint do_blanking 1` |
 | Start des Kiosks beim Anmelden, Neustart nach einem Absturz | `/home/handball/.config/labwc/autostart` mit `lwrespawn` |
 | Kiosk-Script: startet Chromium sofort, wenn der Screen schon einmal geladen wurde, sonst nach bis zu 2 Minuten Warten auf Internet | `/usr/local/bin/handball-screen-kiosk` |
+| Mauszeiger ausgeblendet, sobald Chromium erscheint | `/home/handball/.config/labwc/rc.xml` mit der Fensterregel `HideCursor` |
+| Chromium bietet keine Übersetzung an | Richtlinie `TranslateEnabled` in `/etc/chromium/policies/managed/handball-screen.json` |
 | Schreibgeschützte SD-Karte und Boot-Partition, Änderungen nur im RAM | `raspi-config nonint do_overlayfs 0` mit dem Paket `overlayroot` |
 | Neue Version auf die SD-Karte schreiben, sobald Chromium sie vollständig geladen hat, danach Neustart | `/usr/local/sbin/handball-screen-save-offline-copy`, alle 5 Minuten über `handball-screen-save-offline-copy.timer` (systemd) |
 

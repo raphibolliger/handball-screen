@@ -65,7 +65,6 @@ write_files:
         --no-first-run \
         --start-maximized \
         --hide-crash-restore-bubble \
-        --disable-features=Translate \
         --password-store=basic
 
   - path: /usr/local/sbin/handball-screen-save-offline-copy
@@ -148,6 +147,26 @@ write_files:
     defer: true
     content: |
       /usr/bin/lwrespawn /usr/local/bin/handball-screen-kiosk &
+
+  - path: /home/handball/.config/labwc/rc.xml
+    owner: handball:handball
+    permissions: "0644"
+    defer: true
+    content: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <openbox_config xmlns="http://openbox.org/3.4/rc">
+        <windowRules>
+          <windowRule identifier="chromium*">
+            <action name="HideCursor" />
+          </windowRule>
+        </windowRules>
+      </openbox_config>
+
+  - path: /etc/chromium/policies/managed/handball-screen.json
+    content: |
+      {
+        "TranslateEnabled": false
+      }
 
   - path: /etc/systemd/system/handball-screen-save-offline-copy.service
     content: |
