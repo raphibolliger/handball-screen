@@ -4,7 +4,6 @@ set -euo pipefail
 TEMPLATE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BOOT_PARTITION="${1:-/Volumes/bootfs}"
 OPENSSL_CANDIDATES=(openssl /opt/homebrew/opt/openssl/bin/openssl /usr/local/opt/openssl/bin/openssl)
-SSH_KEY_CANDIDATES=("$HOME/.ssh/id_ed25519.pub" "$HOME/.ssh/id_ecdsa.pub" "$HOME/.ssh/id_rsa.pub")
 
 fail() {
   echo "Fehler: $*" >&2
@@ -43,16 +42,6 @@ read_user_password() {
   printf '%s' "$password"
 }
 
-find_ssh_public_key() {
-  local candidate
-  for candidate in "${SSH_KEY_CANDIDATES[@]}"; do
-    if [[ -f "$candidate" ]]; then
-      echo "$candidate"
-      return
-    fi
-  done
-}
-
 render_template() {
   python3 -I - "$1" "$2" <<'PYTHON'
 import json
@@ -67,13 +56,8 @@ wifi_section = '  wifis:\n'
 if not os.environ['WIFI_SSID'] and wifi_section in text:
     text = text[: text.index(wifi_section)]
 
-ssh_keys_placeholder = '__SSH_AUTHORIZED_KEYS__'
-if not os.environ['SSH_PUBLIC_KEY']:
-    text = ''.join(line for line in text.splitlines(keepends=True) if ssh_keys_placeholder not in line)
-
 replacements = {
     '__PASSWORD_HASH__': json.dumps(os.environ['PASSWORD_HASH']),
-    ssh_keys_placeholder: json.dumps([os.environ['SSH_PUBLIC_KEY']]),
     '__WIFI_SSID__': json.dumps(os.environ['WIFI_SSID']),
     '__WIFI_PASSWORD__': json.dumps(os.environ['WIFI_PASSWORD']),
 }
@@ -87,7 +71,7 @@ PYTHON
 
 main() {
   ensure_boot_partition
-  local openssl_binary password ssh_key_file
+  local openssl_binary password
   openssl_binary="$(find_sha512_openssl)"
 
   read -rp "WLAN-Name (leer lassen für LAN-Kabel): " WIFI_SSID
@@ -100,13 +84,7 @@ main() {
   password="$(read_user_password)"
   PASSWORD_HASH="$(printf '%s' "$password" | "$openssl_binary" passwd -6 -stdin)"
 
-  SSH_PUBLIC_KEY=""
-  ssh_key_file="$(find_ssh_public_key)"
-  if [[ -n "$ssh_key_file" ]]; then
-    SSH_PUBLIC_KEY="$(<"$ssh_key_file")"
-  fi
-
-  export WIFI_SSID WIFI_PASSWORD PASSWORD_HASH SSH_PUBLIC_KEY
+  export WIFI_SSID WIFI_PASSWORD PASSWORD_HASH
   render_template "$TEMPLATE_DIR/user-data" "$BOOT_PARTITION/user-data"
   render_template "$TEMPLATE_DIR/network-config" "$BOOT_PARTITION/network-config"
   sync
@@ -117,11 +95,6 @@ main() {
     echo "Netzwerk: WLAN \"$WIFI_SSID\" und LAN-Kabel"
   else
     echo "Netzwerk: nur LAN-Kabel"
-  fi
-  if [[ -n "$ssh_key_file" ]]; then
-    echo "SSH-Schlüssel: $ssh_key_file"
-  else
-    echo "SSH-Schlüssel: keiner gefunden, Anmeldung per Passwort"
   fi
   echo "Karte jetzt auswerfen und in den Raspberry Pi stecken."
 }
