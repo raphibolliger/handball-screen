@@ -14,9 +14,12 @@ users:
     lock_passwd: false
     passwd: __PASSWORD_HASH__
     sudo: ALL=(ALL) NOPASSWD:ALL
-    ssh_authorized_keys: __SSH_AUTHORIZED_KEYS__
 
 ssh_pwauth: true
+
+package_update: true
+packages:
+  - overlayroot
 
 write_files:
   - path: /usr/local/bin/handball-screen-kiosk
@@ -26,6 +29,13 @@ write_files:
       SCREEN_URL="https://thankful-forest-081355703.5.azurestaticapps.net/"
       NETWORK_WAIT_SECONDS=120
       CHROMIUM_PROFILE="$HOME/.config/chromium/Default"
+      SAVING_FLAG=/run/handball-screen-saving
+
+      wait_while_offline_copy_is_saved() {
+        while [ -e "$SAVING_FLAG" ]; do
+          sleep 1
+        done
+      }
 
       has_offline_copy() {
         [ -d "$CHROMIUM_PROFILE/Service Worker" ]
@@ -45,6 +55,7 @@ write_files:
         sed -i 's/"exited_cleanly":false/"exited_cleanly":true/; s/"exit_type":"[^"]*"/"exit_type":"Normal"/' "$CHROMIUM_PROFILE/Preferences"
       }
 
+      wait_while_offline_copy_is_saved
       has_offline_copy || wait_for_screen_url
       mark_last_session_clean
       exec chromium "$SCREEN_URL" \
@@ -57,6 +68,80 @@ write_files:
         --disable-features=Translate \
         --password-store=basic
 
+  - path: /usr/local/sbin/handball-screen-save-offline-copy
+    permissions: "0755"
+    content: |
+      #!/bin/sh
+      SCREEN_URL="https://thankful-forest-081355703.5.azurestaticapps.net/"
+      CHROMIUM_CONFIG=/home/handball/.config/chromium
+      SERVICE_WORKER_CACHE="$CHROMIUM_CONFIG/Default/Service Worker/CacheStorage"
+      SD_CARD=/media/root-ro
+      SAVED_VERSION_FILE=/var/lib/handball-screen/saved-version
+      SAVING_FLAG=/run/handball-screen-saving
+      CHROMIUM_STOP_SECONDS=30
+
+      deployed_version() {
+        curl --silent --fail --max-time 10 --header "Cache-Control: no-cache" "${SCREEN_URL}ngsw.json" |
+          grep -o '"timestamp": *[0-9]*' | grep -o '[0-9]*$'
+      }
+
+      saved_version() {
+        cat "$SD_CARD$SAVED_VERSION_FILE" 2>/dev/null
+      }
+
+      is_fully_loaded_by_chromium() {
+        grep -rqaF "\"timestamp\":$1" "$SERVICE_WORKER_CACHE" 2>/dev/null
+      }
+
+      stop_chromium() {
+        pkill -o -x chromium
+        waited=0
+        while pgrep -x chromium >/dev/null; do
+          [ "$waited" -eq "$CHROMIUM_STOP_SECONDS" ] && pkill -KILL -x chromium
+          sleep 1
+          waited=$((waited + 1))
+        done
+      }
+
+      copy_chromium_config_to_sd_card() {
+        target="$SD_CARD$CHROMIUM_CONFIG"
+        mkdir -p "$(dirname "$target")"
+        rm -rf "$target.new"
+        cp -a "$CHROMIUM_CONFIG" "$target.new" || return 1
+        sync
+        if [ -d "$target" ]; then
+          mv --exchange --no-target-directory "$target.new" "$target" && rm -rf "$target.new"
+        else
+          mv "$target.new" "$target"
+        fi
+      }
+
+      remember_saved_version() {
+        mkdir -p "$(dirname "$SD_CARD$SAVED_VERSION_FILE")"
+        echo "$1" > "$SD_CARD$SAVED_VERSION_FILE"
+      }
+
+      finish_saving() {
+        sync
+        mount -o remount,ro "$SD_CARD"
+        rm -f "$SAVING_FLAG"
+      }
+
+      mountpoint -q "$SD_CARD" || exit 0
+      version="$(deployed_version)"
+      [ -n "$version" ] || exit 0
+      [ "$version" != "$(saved_version)" ] || exit 0
+      is_fully_loaded_by_chromium "$version" || exit 0
+
+      touch "$SAVING_FLAG"
+      trap finish_saving EXIT
+      stop_chromium
+      mount -o remount,rw "$SD_CARD" || exit 1
+      copy_chromium_config_to_sd_card || exit 1
+      remember_saved_version "$version"
+      sync
+      systemctl reboot
+
   - path: /home/handball/.config/labwc/autostart
     owner: handball:handball
     permissions: "0644"
@@ -64,22 +149,23 @@ write_files:
     content: |
       /usr/bin/lwrespawn /usr/local/bin/handball-screen-kiosk &
 
-  - path: /etc/systemd/system/handball-screen-reboot.service
+  - path: /etc/systemd/system/handball-screen-save-offline-copy.service
     content: |
       [Unit]
-      Description=Nightly reboot of the handball screen
+      Description=Save a fully loaded new version of the handball screen to the SD card
 
       [Service]
       Type=oneshot
-      ExecStart=/usr/bin/systemctl reboot
+      ExecStart=/usr/local/sbin/handball-screen-save-offline-copy
 
-  - path: /etc/systemd/system/handball-screen-reboot.timer
+  - path: /etc/systemd/system/handball-screen-save-offline-copy.timer
     content: |
       [Unit]
-      Description=Nightly reboot of the handball screen
+      Description=Look for a new version of the handball screen to save every 5 minutes
 
       [Timer]
-      OnCalendar=*-*-* 04:00:00
+      OnBootSec=5min
+      OnUnitActiveSec=5min
 
       [Install]
       WantedBy=timers.target
@@ -89,7 +175,8 @@ runcmd:
   - [raspi-config, nonint, do_ssh, "0"]
   - [raspi-config, nonint, do_boot_behaviour, B4]
   - [raspi-config, nonint, do_blanking, "1"]
-  - [systemctl, enable, handball-screen-reboot.timer]
+  - [systemctl, enable, handball-screen-save-offline-copy.timer]
+  - [raspi-config, nonint, do_overlayfs, "0"]
 
 power_state:
   mode: reboot
