@@ -13,7 +13,8 @@ Slideshow für den Fernseher in der Halle Hofmatten 2 in Wohlen. Sie zeigt abwec
 
 ## So funktioniert der Screen
 
-- Alle 15 Sekunden wechselt er zwischen einem zufälligen Teamfoto und einer zufälligen Sponsorenfolie.
+- Alle 15 Sekunden wechselt er zwischen einem Teamfoto und einer Sponsorenfolie.
+- Teams und Sponsorenfolien laufen wie gemischte Kartenstapel: Jede Folie kommt einmal in zufälliger Reihenfolge, erst dann wird neu gemischt. So erscheinen alle gleich oft, aber nie in derselben Reihenfolge.
 - Die Sponsorenlogos ordnen sich automatisch in einem Raster an, das zur Anzahl Logos passt.
 - Die App ist für einen 4K-Fernseher mit 3840 × 2160 Pixeln gebaut.
 - Ein Service Worker speichert die App und alle Bilder. So läuft der Screen auch ohne Internet und sucht alle 10 Minuten nach einer neuen Version.
