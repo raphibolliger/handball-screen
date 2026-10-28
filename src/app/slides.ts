@@ -98,6 +98,7 @@ export const sponsorSlides: readonly SponsorSlide[] = [
       { name: 'Gärtnerei & Blumengeschäft Donat AG', logo: '/assets/images/sponsors/2026-27/donat.png' },
       { name: 'S. Geissmann', logo: '/assets/images/sponsors/2026-27/s-geissmann.png' },
       { name: 'Bünz-Apotheke', logo: '/assets/images/sponsors/2026-27/buenz-apotheke.png' },
+      { name: 'YARX GmbH', logo: '/assets/images/sponsors/2026-27/yarx.svg' },
     ],
   },
   {
