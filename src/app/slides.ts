@@ -21,7 +21,7 @@ export const teamSlides: readonly TeamSlide[] = [
   { type: 'team', image: '/assets/images/teams/2026-27/fu16r.jpg', title: 'SG Freiamt - FU16 Regio' },
   { type: 'team', image: '/assets/images/teams/2026-27/fu14i.jpg', title: 'SG Freiamt - FU14 Inter' },
   { type: 'team', image: '/assets/images/teams/2026-27/fu14r.jpg', title: 'SG Freiamt - FU14 Regio' },
-  { type: 'team', image: '/assets/images/teams/2026-27/u13mixed.jpg', title: 'SG Freiamt - U13 mixed' },
+  { type: 'team', image: '/assets/images/teams/2026-27/u13turnier.jpg', title: 'SG Freiamt - U13 Turnier' },
 
   { type: 'team', image: '/assets/images/teams/2026-27/kinder_u11.jpg', title: 'Handball Wohlen - Kinderhandball U11' },
   { type: 'team', image: '/assets/images/teams/2026-27/kinder_u9.jpg', title: 'Handball Wohlen - Kinderhandball U9' },
